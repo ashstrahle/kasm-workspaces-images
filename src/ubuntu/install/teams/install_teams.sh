@@ -46,7 +46,7 @@ fi
 apt-get update
 apt-get install -y ./teams.deb
 rm teams.deb
-if [ "${ARCH}" != "arm64" ] ; then
+if ! [ "${ARCH}" == "arm64" ] ; then
     sed -i "s/Exec=teams/Exec=teams --no-sandbox/g" /usr/share/applications/teams.desktop
 fi
 cp /usr/share/applications/teams.desktop $HOME/Desktop/

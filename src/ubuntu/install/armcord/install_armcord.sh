@@ -2,21 +2,23 @@
 set -ex
 
 # Install Armcord from deb
-OWNER="ArmCord"
-REPO="ArmCord"
+owner="ArmCord"
+repo="ArmCord"
 
 # Fetch the latest release information using GitHub API
-LATEST_RELEASE=$(curl -s "https://api.github.com/REPOs/$OWNER/$REPO/releases/latest")
+latest_release=$(curl -s "https://api.github.com/repos/$owner/$repo/releases/latest")
 
 # Extract the URL of the latest ARM64 .deb file
-DEB_URL=$(echo "$LATEST_RELEASE" | grep -Eo '"browser_download_url": *"[^"]+_arm64\.deb"' | grep -Eo 'http[^"]+')
+deb_url=$(echo "$latest_release" | grep -Eo '"browser_download_url": *"[^"]+_arm64\.deb"' | grep -Eo 'http[^"]+')
 
 # Check if the .deb file URL was found
-if [ -z "$DEB_URL" ]; then
+if [ -z "$deb_url" ]; then
     echo "No ARM64 .deb file found in the latest release."
     exit 1
 fi
-curl -L -o ArmCord-latest-arm64.deb "$DEB_URL"
+
+# Download the .deb file
+curl -L -o ArmCord-latest-arm64.deb "$deb_url"
 apt-get update
 apt-get install -y ./ArmCord-latest-arm64.deb
 rm ArmCord-latest-arm64.deb

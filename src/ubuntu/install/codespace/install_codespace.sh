@@ -19,20 +19,27 @@ if [[ "$latest_release" == *"Not Found"* ]]; then
     exit 1
 fi
 
-# Extract the URL of the latest ARM64 .deb file
-deb_url=$(echo "$latest_release" | grep -Eo '"browser_download_url": *"[^"]+arm64\.deb"' | awk -F'"' '{print $4}')
+# Extract the URL of the latest linux-arm64.tar.gz file
+tar_url=$(echo "$latest_release" | grep -Eo '"browser_download_url": *"[^"]+linux-arm64\.tar\.gz"' | awk -F'"' '{print $4}')
 
-# Check if the .deb file URL was found
-if [ -z "$deb_url" ]; then
-    echo "No ARM64 .deb file found in the latest release."
+# Check if the .tar.gz file URL was found
+if [ -z "$tar_url" ]; then
+    echo "No linux-arm64.tar.gz file found in the latest release."
     exit 1
 fi
 
-# Download the .deb file
-curl -L -o powershell-latest-arm64.deb "$deb_url"
+# Output the download URL for debugging
+echo "Download URL: $tar_url"
 
-apt-get install -y ./powershell-latest-arm64.deb
-rm ./powershell-latest-arm64.deb
+# Download the .tar.gz file
+curl -L -o powershell-latest-linux-arm64.tar.gz "$tar_url"
+
+PSHome=/opt/microsoft/powershell
+mkdir -p $PSHome
+tar xzvf powershell-latest-linux-arm64.tar.gz -C $PSHome
+ln -s $PSHome/pwsh /usr/bin/pwsh
+echo /usr/bin/pwsh >> /etc/shells
+rm ./powershell-latest-linux-arm64.tar.gz
 
 # Install DotNet
 RUN curl -s https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh | bash \

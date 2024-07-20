@@ -8,15 +8,8 @@ REPO="ArmCord"
 # Fetch the latest release information using GitHub API
 LATEST_RELEASE=$(curl -s "https://api.github.com/REPOs/$OWNER/$REPO/releases/latest")
 
-# Check if jq is installed
-if ! command -v jq &> /dev/null
-then
-    echo "jq could not be found. Please install it to parse JSON."
-    exit 1
-fi
-
 # Extract the URL of the latest ARM64 .deb file
-DEB_URL=$(echo "$LATEST_RELEASE" | jq -r '.assets[] | select(.name | endswith("_arm64.deb")) | .browser_download_url')
+DEB_URL=$(echo "$LATEST_RELEASE" | grep -Eo '"browser_download_url": *"[^"]+_arm64\.deb"' | grep -Eo 'http[^"]+')
 
 # Check if the .deb file URL was found
 if [ -z "$DEB_URL" ]; then

@@ -4,8 +4,8 @@ START_COMMAND="/opt/ArmCord/armcord"
 PGREP="armcord"
 export MAXIMIZE="true"
 export MAXIMIZE_NAME="ArmCord"
-MAXIMIZE_SCRIPT=$STARTUPDIR/maximize_window.sh
 DEFAULT_ARGS="--no-sandbox"
+MAXIMIZE_SCRIPT=$STARTUPDIR/maximize_window.sh
 ARGS=${APP_ARGS:-$DEFAULT_ARGS}
 
 options=$(getopt -o gau: -l go,assign,url: -n "$0" -- "$@") || exit

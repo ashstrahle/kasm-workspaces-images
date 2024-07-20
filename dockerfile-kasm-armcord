@@ -12,7 +12,7 @@ WORKDIR $HOME
 
 
 COPY ./src/ubuntu/install/armcord $INST_SCRIPTS/armcord/
-RUN bash $INST_SCRIPTS/armcord/armcord.sh  && rm -rf $INST_SCRIPTS/armcord/
+RUN bash $INST_SCRIPTS/armcord/install_armcord.sh  && rm -rf $INST_SCRIPTS/armcord/
 
 COPY ./src/ubuntu/install/armcord/custom_startup.sh $STARTUPDIR/custom_startup.sh
 RUN chmod +x $STARTUPDIR/custom_startup.sh

@@ -28,7 +28,7 @@ fi
 echo "Download URL: $appimage_url"
 
 # Download the .AppImage file
-curl -L -o /opt/Cura.AppImage "$appimage_url"
+wget -O /opt/Cura.AppImage "$appimage_url"
 sudo chmod +x /opt/Cura.AppImage
 
 apt-get update

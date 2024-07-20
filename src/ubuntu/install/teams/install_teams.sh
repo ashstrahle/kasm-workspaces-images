@@ -17,10 +17,16 @@ if [ "${ARCH}" == "arm64" ] ; then
     fi
 
     # Extract the latest version tag
-    latest_version=$(echo "$latest_release" | grep -Eo '"tag_name": *"[^"]+"' | grep -Eo '[^"]+$')
+    latest_version=$(echo "$latest_release" | grep -Eo '"tag_name": *"[^"]+"' | awk -F'"' '{print $4}')
+
+    # Check if the version tag was found
+    if [ -z "$latest_version" ]; then
+        echo "Failed to extract the latest version tag."
+        exit 1
+    fi
 
     # Extract the URL of the latest ARM64 .deb file
-    deb_url=$(echo "$latest_release" | grep -Eo '"browser_download_url": *"[^"]+arm64\.deb"' | grep -Eo 'http[^"]+')
+    deb_url=$(echo "$latest_release" | grep -Eo '"browser_download_url": *"[^"]+arm64\.deb"' | awk -F'"' '{print $4}')
 
     # Check if the .deb file URL was found
     if [ -z "$deb_url" ]; then
@@ -32,7 +38,7 @@ if [ "${ARCH}" == "arm64" ] ; then
     echo "Latest version: $latest_version"
 
     # Download the .deb file
-    curl -L -o teams.deb "$deb_url"
+    curl -L -o teams-for-linux-latest-arm64.deb "$deb_url"
 else
     curl -L -o teams.deb  "https://go.microsoft.com/fwlink/p/?linkid=2112886&clcid=0x409&culture=en-us&country=us"
 fi

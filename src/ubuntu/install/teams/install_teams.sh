@@ -39,6 +39,8 @@ if [ "${ARCH}" == "arm64" ] ; then
 
     # Download the .deb file
     curl -L -o teams.deb "$deb_url"
+
+    ln -s /usr/bin/teams-for-linux /usr/bin/teams
 else
     curl -L -o teams.deb  "https://go.microsoft.com/fwlink/p/?linkid=2112886&clcid=0x409&culture=en-us&country=us"
 fi

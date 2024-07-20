@@ -38,7 +38,7 @@ if [ "${ARCH}" == "arm64" ] ; then
     echo "Latest version: $latest_version"
 
     # Download the .deb file
-    curl -L -o teams-for-linux-latest-arm64.deb "$deb_url"
+    curl -L -o teams.deb "$deb_url"
 else
     curl -L -o teams.deb  "https://go.microsoft.com/fwlink/p/?linkid=2112886&clcid=0x409&culture=en-us&country=us"
 fi

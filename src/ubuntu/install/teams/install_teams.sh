@@ -2,7 +2,6 @@
 set -ex
 ARCH=$(arch | sed 's/aarch64/arm64/g' | sed 's/x86_64/amd64/g')
 
-apt-get update
 if [ "${ARCH}" == "arm64" ] ; then
     # GitHub repository details
     owner="IsmaelMartinez"
@@ -44,6 +43,7 @@ else
     curl -L -o teams.deb  "https://go.microsoft.com/fwlink/p/?linkid=2112886&clcid=0x409&culture=en-us&country=us"
 fi
 
+apt-get update
 apt-get install -y ./teams.deb
 rm teams.deb
 if ! [ "${ARCH}" == "arm64" ] ; then

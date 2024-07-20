@@ -8,6 +8,12 @@ repo="ArmCord"
 # Fetch the latest release information using GitHub API
 latest_release=$(curl -s "https://api.github.com/repos/$owner/$repo/releases/latest")
 
+# Check if the API request was successful
+if [[ "$latest_release" == *"Not Found"* ]]; then
+    echo "Failed to fetch release information. Please check the repository details."
+    exit 1
+fi
+
 # Extract the URL of the latest ARM64 .deb file
 deb_url=$(echo "$latest_release" | grep -Eo '"browser_download_url": *"[^"]+_arm64\.deb"' | grep -Eo 'http[^"]+')
 

@@ -39,8 +39,6 @@ if [ "${ARCH}" == "arm64" ] ; then
 
     # Download the .deb file
     curl -L -o teams.deb "$deb_url"
-
-    ln -s /usr/bin/teams-for-linux /usr/bin/teams
 else
     curl -L -o teams.deb  "https://go.microsoft.com/fwlink/p/?linkid=2112886&clcid=0x409&culture=en-us&country=us"
 fi
@@ -48,7 +46,9 @@ fi
 apt-get update
 apt-get install -y ./teams.deb
 rm teams.deb
-if ! [ "${ARCH}" == "arm64" ] ; then
+if [ "${ARCH}" == "arm64" ] ; then
+    ln -s /usr/bin/teams-for-linux /usr/bin/teams
+else
     sed -i "s/Exec=teams/Exec=teams --no-sandbox/g" /usr/share/applications/teams.desktop
     cp /usr/share/applications/teams.desktop $HOME/Desktop/
     chmod +x $HOME/Desktop/teams.desktop

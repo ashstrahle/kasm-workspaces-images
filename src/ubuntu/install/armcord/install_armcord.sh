@@ -23,11 +23,6 @@ if [ -z "$deb_url" ]; then
     exit 1
 fi
 
-# Desktop file setup
-sed -i "s@Exec=/opt/ArmCord/armcord@Exec=/opt/Armcord/armcord --no-sandbox@g"  /usr/share/applications/armcord.desktop
-cp /usr/share/applications/armcord.desktop $HOME/Desktop/
-chmod +x $HOME/Desktop/armcord.desktop
-
 # Download the .deb file
 curl -L -o ArmCord-latest-arm64.deb "$deb_url"
 apt-get update

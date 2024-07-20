@@ -30,6 +30,9 @@ if [ "${ARCH}" == "arm64" ] ; then
     curl -L -o signal-desktop.deb "$deb_url"
     apt-get update
     apt-get install -y ./signal-desktop.deb
+    mv "/opt/Signal Unofficial" /opt/signal
+    ln -s /opt/signal/signal-desktop-unofficial /usr/bin/signal-desktop
+
     rm ./signal-desktop.deb
 else
     # Signal only releases its desktop app under the xenial release, however it is compatible with all versions of Debian and Ubuntu that we support.

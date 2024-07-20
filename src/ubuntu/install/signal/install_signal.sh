@@ -26,9 +26,6 @@ if [ "${ARCH}" == "arm64" ] ; then
         exit 1
     fi
 
-    # Output the latest version
-    echo "Latest version: $latest_version"
-
     # Download the .deb file
     curl -L -o signal-desktop.deb "$deb_url"
     apt-get update

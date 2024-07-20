@@ -46,6 +46,8 @@ fi
 apt-get update
 apt-get install -y ./teams.deb
 rm teams.deb
-sed -i "s/Exec=teams/Exec=teams --no-sandbox/g" /usr/share/applications/teams.desktop
+if [ "${ARCH}" != "arm64" ] ; then
+    sed -i "s/Exec=teams/Exec=teams --no-sandbox/g" /usr/share/applications/teams.desktop
+fi
 cp /usr/share/applications/teams.desktop $HOME/Desktop/
 chmod +x $HOME/Desktop/teams.desktop

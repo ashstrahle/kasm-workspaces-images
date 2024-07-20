@@ -14,7 +14,7 @@ WORKDIR $HOME
 COPY ./src/ubuntu/install/cura $INST_SCRIPTS/cura/
 RUN bash $INST_SCRIPTS/cura/install_cura.sh  && rm -rf $INST_SCRIPTS/cura/
 
-COPY ./src/ubuntu/install/armcord/custom_startup.sh $STARTUPDIR/custom_startup.sh
+COPY ./src/ubuntu/install/cura/custom_startup.sh $STARTUPDIR/custom_startup.sh
 RUN chmod +x $STARTUPDIR/custom_startup.sh
 RUN chmod 755 $STARTUPDIR/custom_startup.sh
 

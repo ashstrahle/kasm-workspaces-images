@@ -15,7 +15,7 @@ if [[ "$latest_release" == *"Not Found"* ]]; then
 fi
 
 # Extract the URL of the latest ARM64 .deb file
-deb_url=$(echo "$latest_release" | grep -Eo '"browser_download_url": *"[^"]+_arm64\.deb"' | grep -Eo 'http[^"]+')
+deb_url=$(echo "$latest_release" | grep -Eo '"browser_download_url": *"[^"]+-arm64\.deb"' | grep -Eo 'http[^"]+')
 
 # Check if the .deb file URL was found
 if [ -z "$deb_url" ]; then
